@@ -23,10 +23,20 @@ export const alicePkh = hash160(alicePub);
 export const aliceAddress = encodeCashAddress('bchtest', 'p2pkh', alicePkh);
 
 
-// Derive Bob's private key, public key, public key hash and address ---CMGT
+// Derive Bob's private key, public key, public key hash and address 
 const bobNode = deriveHdPath(rootNode, `${baseDerivationPath}/1`);
 if (typeof bobNode === 'string') throw new Error();
 export const bobPub = secp256k1.derivePublicKeyCompressed(bobNode.privateKey);
 export const bobPriv = bobNode.privateKey;
 export const bobPkh = hash160(bobPub);
 export const bobAddress = encodeCashAddress('bchtest', 'p2pkh', bobPkh);
+
+
+// Derive charlie's private key, public key, public key hash and address 
+const charlieNode = deriveHdPath(rootNode, `${baseDerivationPath}/2`);
+if (typeof charlieNode === 'string') throw new Error();
+export const charliePub = secp256k1.derivePublicKeyCompressed(charlieNode.privateKey);
+export const charliePriv = charlieNode.privateKey;
+export const charliePkh = hash160(charliePub);
+export const charlieAddress = encodeCashAddress('bchtest', 'p2pkh', charliePkh);
+
