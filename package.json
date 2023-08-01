@@ -28,6 +28,8 @@
     "test": ""
   },
   "dependencies": {
+    "bip39": "^3.1.0",
+    "cashc": "^0.8.1",
     "cashscript": "^0.8.1"
   }
 }
