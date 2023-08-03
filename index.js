@@ -1,3 +1,5 @@
+//TESTING BRANCH
+
 import { stringify } from '@bitauth/libauth';
 import { compileFile } from 'cashc';
 import { Contract, ElectrumNetworkProvider, SignatureTemplate } from 'cashscript';
