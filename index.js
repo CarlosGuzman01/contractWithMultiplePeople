@@ -34,7 +34,7 @@ console.log('contract address:', contract.address);
 console.log('contract balance:', await contract.getBalance());
 
 // Call the transfer function with bob's signature
-//Allows bob to claim the money that alice sent him
+//Allows bob, charlie and alice to claim the money that alice sent 
 const transferTx = await contract.functions
   .transfer(new SignatureTemplate(bobPriv))
   .to(contract.address, 1000n)
@@ -44,20 +44,6 @@ const transferTx = await contract.functions
   .send();
 
 console.log('transfer transaction details:', stringify(transferTx));
-
-//CMGT1---------------------------------------------------------------------
-
-// const transferTX2 = await contract.functions
-// .transfer(new SignatureTemplate(charliePriv))
-// .to(contract.address, 1000n)
-// .send();
-
-
-// console.log("transfer transaction, charlie , details:", stringify(transferTX2));
-
-//CMGT2---------------------------------------------------------------------
-
-
 
 // Call the timeout function with alice's signature
 // Allows alice to reclaim the money she sent as the timeout is in the past
