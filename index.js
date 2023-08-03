@@ -28,37 +28,24 @@ const provider = new ElectrumNetworkProvider('chipnet');
 
 // Instantiate a new contract using the compiled artifact and network provider
 // AND providing the constructor parameters:
-// { sender: alicePk, recipient: bobPk, timeout: 1000000 } - timeout is a past block
-const contract = new Contract(artifact, [alicePub, bobPub, 100000n], { provider });
+// { sender: alicePk, recipient: bobPk and charliePk, timeout: 1000000 } - timeout is a past block
+const contract = new Contract(artifact, [alicePub, bobPub, charliePub, 100000n], { provider });
 
 // Get contract balance & output address + balance
 console.log('contract address:', contract.address);
 console.log('contract balance:', await contract.getBalance());
 
-// Call the transfer function with bob's signature
-//Allows bob to claim the money that alice sent him
+// Call the transfer function with bob's and charlie's signature
+//Allows bob and charlie to claim the money that alice sent them
+
 const transferTx = await contract.functions
-  .transfer(new SignatureTemplate(bobPriv))
-  .to(contract.address, 1000n)
-  .to(charlieAddress, 1000n)
+  .transfer(new SignatureTemplate(bobPriv), new SignatureTemplate(charliePriv)) 
+  .to(contract.address, 10000n) 
   .to(bobAddress, 1000n)
-  .to(aliceAddress, 1000n)
+  .to(charlieAddress, 1000n)
   .send();
 
-console.log('transfer transaction details:', stringify(transferTx));
-
-//CMGT1---------------------------------------------------------------------
-
-// const transferTX2 = await contract.functions
-// .transfer(new SignatureTemplate(charliePriv))
-// .to(contract.address, 1000n)
-// .send();
-
-
-// console.log("transfer transaction, charlie , details:", stringify(transferTX2));
-
-//CMGT2---------------------------------------------------------------------
-
+console.log('transfer transaction, details:', stringify(transferTx));
 
 
 // Call the timeout function with alice's signature

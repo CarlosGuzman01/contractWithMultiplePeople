@@ -3,11 +3,14 @@ pragma cashscript ^0.8.0;
 contract TransferWithTimeout(
     pubkey sender,
     pubkey recipient,
+    pubkey recipient2,
     int timeout,
 ) {
     // Require recipient's signature to match
-    function transfer(sig recipientSig) {
+    function transfer(sig recipientSig, sig recipientSig2) {
         require(checkSig(recipientSig, recipient));
+        require(checkSig(recipientSig2, recipient2));
+        
        
     }
 
